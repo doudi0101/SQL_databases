@@ -42,6 +42,10 @@ INNER JOIN dept_manager dm
 ON e.emp_no = dm.emp_no;
 ```
 
+# Enregistrements dupliqués
+
+3.1. Ajouter des enregistrements dupliqués dans les tables dept_manager_dup et departments_dup
+
 
 
 
