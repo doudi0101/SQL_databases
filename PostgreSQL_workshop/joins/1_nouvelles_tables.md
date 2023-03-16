@@ -141,4 +141,40 @@ WHERE s.salary > 145000;
 
 6.5. Joindre les tables 'employees' et 'dept_manager' pour obtenir un sous-ensemble de tous les employés qui ont été embauchés avant le 31 janvier 1985.
 
+# 7. Utiliser les fonctions d'agrégation avec JOIN
+
+7.1. Quel est le salaire moyen pour les différents genres ?
+
+7.2. Quel sera le résultat si nous faisons un SELECT de e.emp_no ?
+
+```sql
+SELECT e.emp_no, e.gender, AVG(s.salary) AS average_salary
+FROM employees e
+JOIN salaries s 
+ON e.emp_no = s.emp_no
+GROUP BY e.emp_no, gender; 
+```
+
+7.3. Combien d'hommes et de femmes managers avons-nous dans la base de données des employés ? base de données des employés ?
+
+
+# 8.Joindre plus de deux tables
+8.1. Extraire une liste de tous les noms et prénoms des managers, de leur numéro de service, de leur date d'embauche, de leur date d'entrée en fonction, et le nom du département
+
+8.2. Quel sera le résultat de la requête suivante:
+```sql
+SELECT e.first_name, e.last_name, m.dept_no, e.hire_date, m.to_date, d.dept_name
+FROM departments d
+JOIN dept_manager m 
+ON d.dept_no = m.dept_no
+JOIN employees e 
+ON m.emp_no = e.emp_no;
+```
+
+8.3. Récupérer le salaire moyen pour les différents départements
+
+8.4. Récupérer le salaire moyen pour les différents départements où le salaire moyen est supérieur à 60000.
+
+
+
 
