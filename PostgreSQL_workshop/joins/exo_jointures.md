@@ -53,12 +53,32 @@ INSERT INTO departments_dup
 VALUES	('d009', 'Customer Service');
 ```
 3.2. Sélectionner tous les enregistrements de la table dept_manager_dup
-
+```sql
+SELECT * FROM dept_manager_dup;
+```
 3.3. Sélectionner tous les enregistrements de la table departments_dup
+```sql
+SELECT * FROM departments_dup;
+```
 
 3.4. Effectuer le INNER JOIN comme précédemment 
+```sql
+SELECT m.emp_no, m.dept_no, d.dept_name
+FROM dept_manager_dup m
+INNER JOIN departments_dup d
+ON m.dept_no = d.dept_no
+ORDER BY m.dept_no;
+```
 
 3.5. Ajoutez une clause GROUP BY. Veillez à inclure tous les champs dans la clause GROUP BY.
+```sql
+SELECT m.emp_no, m.dept_no,
+FROM dept_manager_dup m
+INNER JOIN departments_dup d
+ON m.dept_no = d.dept_no
+GROUP BY m.emp_no, m.dept_no, d.dept_name
+ORDER BY m.dept_no;
+```
 
 # 4. LEFT JOIN 
 
