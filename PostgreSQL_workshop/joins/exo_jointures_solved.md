@@ -233,7 +233,13 @@ ORDER BY dm.dept_no, e.emp_no;
 # 7. Utiliser les fonctions d'agrégation avec JOIN
 
 7.1. Quel est le salaire moyen pour les différents genres ?
-
+```sql
+SELECT e.gender, ROUND(AVG(salary),2) AS average_salary
+FROM employees e
+JOIN salaries s
+ON e.emp_no = s.emp_no
+GROUP BY e.gender;
+```
 7.2. Quel sera le résultat si nous faisons un SELECT de e.emp_no ?
 
 ```sql
