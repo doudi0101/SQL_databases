@@ -249,12 +249,27 @@ JOIN salaries s
 ON e.emp_no = s.emp_no
 GROUP BY e.emp_no, gender; 
 ```
+le genre et le salaire moyen de chaque employé
 
-7.3. Combien d'hommes et de femmes managers avons-nous dans la base de données des employés ? base de données des employés ?
-
+7.3. Combien d'hommes et de femmes managers avons-nous dans la base de données des employés ? 
+```sql
+SELECT e.gender, COUNT (dm.emp_no)
+FROM employees e
+JOIN dept_manager dm
+ON e.emp_no = dm.emp_no
+GROUP BY e.gender;
+```
 
 # 8.Joindre plus de deux tables
 8.1. Extraire une liste de tous les noms et prénoms des managers, de leur numéro de service, de leur date d'embauche, de leur date d'entrée en fonction, et le nom du département
+```sql
+SELECT e.emp_no, e.first_name, e.last_name, m.dept_no, e.hire_date, m.to_date, d.dept_name
+FROM employees e
+JOIN dept_manager m
+ON e.emp_no = m.emp_no
+JOIN departments d
+ON m.dept_no = d.dept_no;
+```
 
 8.2. Quel sera le résultat de la requête suivante:
 ```sql
@@ -267,10 +282,29 @@ ON m.emp_no = e.emp_no;
 ```
 
 8.3. Récupérer le salaire moyen pour les différents départements
-
+```sql
+SELECT d.dept_name, AVG(salary) AS average_salary
+FROM departments d
+JOIN dept_emp de
+ON d.dept_no = de.dept_no
+JOIN salaries s
+ON de.emp_no = s.emp_no
+GROUP BY d.dept_name
+ORDER BY AVG(salary) DESC;
+```
 
 8.4. Récupérer le salaire moyen pour les différents départements où le salaire moyen est supérieur à 60000.
-
+```sql
+SELECT d.dept_name, AVG(salary) AS average_salary
+FROM departments d
+JOIN dept_emp de
+ON d.dept_no = de.dept_no
+JOIN salaries s
+ON de.emp_no = s.emp_no
+GROUP BY d.dept_name
+HAVING AVG(salary) > 69000
+ORDER BY AVG(salary) DESC;
+```
 
 
 
