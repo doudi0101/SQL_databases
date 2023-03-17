@@ -302,7 +302,7 @@ ON d.dept_no = de.dept_no
 JOIN salaries s
 ON de.emp_no = s.emp_no
 GROUP BY d.dept_name
-HAVING AVG(salary) > 69000
+HAVING AVG(salary) > 60000
 ORDER BY AVG(salary) DESC;
 ```
 
