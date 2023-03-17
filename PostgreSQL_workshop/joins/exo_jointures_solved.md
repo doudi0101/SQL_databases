@@ -103,8 +103,14 @@ VALUES	('d009', 'Customer Service');
 ```
 
 4.3. Sélectionner tous les enregistrements de dept_manager_dup
+```sql
+SELECT * from dept_manager_dup;
+```
 
 4.4. Sélectionner tous les enregistrements de departments_dup
+```sql
+SELECT * from departments_dup;
+```
 
 Rappelez-vous, lorsque nous avions INNER JOIN:
 
@@ -118,10 +124,23 @@ ORDER BY m.dept_no;
 
 4.5. Joindre les tables dept_manager_dup et departments_dup
 Extraire un sous-ensemble de tous les numéros d'employé, numéros de département et noms de département de tous les managers. Ordonner par le numéro de département des responsables  
+```sql
+SELECT m.dept_no, m.emp_no, d.dept_name
+FROM dept_manager_dup m
+LEFT JOIN departments_dup d
+ON m.dept_no = d.dept_no
+ORDER BY m.dept_no;
+```
 
 4.6. Que se passera-t-il si nous mettons d LEFT JOIN m ?
-
-
+```sql
+SELECT m.dept_no, m.emp_no, d.dept_name
+FROM departments_dup d
+LEFT JOIN dept_manager_dup m
+ON d.dept_no = m.dept_no
+ORDER BY m.dept_no;
+```
+Obseravation de la différence en nombre de lignes rendues
 
 # 5. RIGHT JOIN
 Nous avons vu LEFT JOIN dans l'exercice précédent:
@@ -135,16 +154,43 @@ ORDER BY dept_no;
 ```
 
 5.1. Utiliser RIGHT JOIN 
+```sql
+SELECT m.dept_no, m.emp_no, d.dept_name
+FROM dept_manager_dup m
+RIGHT OUTER JOIN departments_dup d
+ON m.dept_no = d.dept_no
+ORDER BY dept_no;
+```
 
 5.2. SELECT d.dept_no
+```sql
+SELECT m.dept_no, m.emp_no, d.dept_name
+FROM dept_manager_dup m
+RIGHT OUTER JOIN departments_dup d
+ON m.dept_no = d.dept_no
+ORDER BY d.dept_no;
+```
 
 5.3. Faire d LEFT JOIN m
-
+```sql
+SELECT m.dept_no, m.emp_no, d.dept_name
+FROM departments_dup d
+LEFT JOIN dept_manager_dup m
+ON m.dept_no = d.dept_no
+ORDER BY dept_no;
+```
 
 
 # 6.Utiliser WHERE et JOIN 
 
 6.1. Extraire le numéro d'employé, le prénom, le nom et le salaire de tous les employés qui gagnent plus de 145000 dollars par an
+```
+SELECT e.emp_no, e.first_name, e.last_name, s.salary
+FROM employees e
+JOIN salaries s
+ON e.emp_no = s.emp_no
+WHERE salary > 145000;
+```
 
 6.2. Quel est le résultat de cette requête ?
 ```sql
@@ -155,11 +201,34 @@ ON e.emp_no = s.emp_no
 WHERE s.salary > 145000;
 ```
 6.3. Sélectionner le nom, le prénom, la date d'embauche et le salaire de tous les employés dont le prénom est 'Mario' et le nom 'Straney'
+```sql
+SELECT e.first_name, e.last_name, e.hire date, s.salary
+FROM employees e
+JOIN salaries s
+ON e.emp_no = s.emp_no
+WHERE first_name = 'Mario' AND last_name = 'Straney'
+ORDER BY e.emp_no;
+```
 
 6.4. Joignez les tables "employees" et "dept_manager" pour obtenir un sous-ensemble de tous les employés dont le nom de famille est "Markovitch". 
  Vérifiez si le résultat contient un manager portant ce nom.
-
+```sql
+SELECT e.emp_no, e.first_name, e.last_name, dm.dept_no, dm.from_date
+FROM employees e
+LEFT JOIN dept_manager dm
+ON e.emp_no = dm.emp_no
+WHERE e.last_name = 'Markovitch'
+ORDER BY dm.dept_no, e.emp_no;
+```
 6.5. Joindre les tables 'employees' et 'dept_manager' pour obtenir un sous-ensemble de tous les employés qui ont été embauchés avant le 31 janvier 1985.
+```sql
+SELECT e.emp_no, e.first_name, e.last_name, dm.dept_no, dm.from_date
+FROM employees e
+LEFT JOIN dept_manager dm
+ON e.emp_no = dm.emp_no
+WHERE e.hire_date < '1985-01-31'
+ORDER BY dm.dept_no, e.emp_no;
+```
 
 # 7. Utiliser les fonctions d'agrégation avec JOIN
 
@@ -192,6 +261,7 @@ ON m.emp_no = e.emp_no;
 ```
 
 8.3. Récupérer le salaire moyen pour les différents départements
+
 
 8.4. Récupérer le salaire moyen pour les différents départements où le salaire moyen est supérieur à 60000.
 
